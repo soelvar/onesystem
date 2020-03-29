@@ -1,0 +1,34 @@
+{
+  "reportItemModelList": [
+    {
+      "clientInformationModel": {
+        "clientType": "aClientType",
+        "clientNumber": 2,
+        "accountNumber": 1,
+        "subAccountNumber": 3
+      },
+      "productInformationModel": {
+        "exchangeCode": "anExchangeCode",
+        "productGroupCode": "aProductGroupCode",
+        "symbol": "aSymbol",
+        "expirationDate": "2020-01-30"
+      },
+      "total": 4
+    },
+    {
+      "clientInformationModel": {
+        "clientType": "aClientType2",
+        "clientNumber": 22,
+        "accountNumber": 12,
+        "subAccountNumber": 32
+      },
+      "productInformationModel": {
+        "exchangeCode": "anExchangeCode2",
+        "productGroupCode": "aProductGroupCode2",
+        "symbol": "aSymbol2",
+        "expirationDate": "2021-01-30"
+      },
+      "total": 42
+    }
+  ]
+}

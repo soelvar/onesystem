@@ -1,0 +1,30 @@
+---
+
+kafka:
+  bootstrapAddress: kafka:9092
+  topics:
+    onesystemTopic:
+      name: onesystem_topic
+      numPartitions: 1
+      replicationFactor: 1
+  consumers:
+    transactionsConsumer:
+      groupId: transactionsGroupId
+
+## default connection pool
+
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/onesystem_database
+    username: postgres
+    password: password
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    show-sql: true

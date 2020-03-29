@@ -1,0 +1,76 @@
+version: '3.4'
+services:
+
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: onesystem_database
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+    depends_on:
+      - postgres
+
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+#  zookeeper:
+#    image: wurstmeister/zookeeper
+#    ports:
+#      - 2181:2181
+#    tmpfs: "/data"
+#
+#  kafka:
+#    image: wurstmeister/kafka
+#    environment:
+#      #HOSTNAME_COMMAND: "route -n | awk '/UG[ \t]/{print $$2}'"
+#      #KAFKA_ADVERTISED_HOST_NAME: kafka
+#      KAFKA_LISTENERS: OUTSIDE://kafka:9092,INSIDE://localhost:9093
+#      KAFKA_ADVERTISED_LISTENERS: OUTSIDE://kafka:9092,INSIDE://localhost:9093
+#      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: OUTSIDE:PLAINTEXT,INSIDE:PLAINTEXT
+#      KAFKA_INTER_BROKER_LISTENER_NAME: OUTSIDE
+#      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+#    depends_on:
+#      - zookeeper
+
+  onesystem:
+    image: adoptopenjdk/maven-openjdk13
+    ports:
+      - 8080:8080
+      - 5005:5005
+    volumes:
+      - ./:/app
+      - ${M2_REPO}:/root/.m2
+      - /tmp:/tmp
+    working_dir: /app
+    entrypoint:
+      - sh
+      - -c
+    command: >
+      "
+      mvn -f pom.xml spring-boot:run -Dspring-boot.run.profiles=compose
+      "

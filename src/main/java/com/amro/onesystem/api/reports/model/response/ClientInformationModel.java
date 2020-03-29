@@ -1,0 +1,21 @@
+package com.amro.onesystem.api.reports.model.response;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class ClientInformationModel {
+
+  private String clientType;
+
+  private Integer clientNumber;
+
+  private Integer accountNumber;
+
+  private Integer subAccountNumber;
+}
