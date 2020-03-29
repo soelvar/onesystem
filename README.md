@@ -10,7 +10,9 @@ I found to me the interpretation of the task that made most sense was as documen
 * InputsController sends each individual transaction to Kafka.
 * Kafka listener receives the transactions and persist them in the database.
 * Reports can be queries through the ReportsController
-
+## Observations
+* I am well aware there is no transactional integrity and transactions could get lost if any system failure.
+* Duplicate transaction can easily occur in the database, as there are no nature keys I am aware of.
 ## API Documentation
 Please see Swagger for API documentation: http://localhost: http://localhost:8080/swagger-ui.html
 
