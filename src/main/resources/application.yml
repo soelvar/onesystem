@@ -28,3 +28,9 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
     show-sql: true
+  jackson:
+    default-property-inclusion: NON_EMPTY
+    deserialization:
+      fail-on-unknown-properties: false # Allow unexpected JSON properties in requests – they will be silently ignored.
+    serialization:
+      write-dates-as-timestamps: false
