@@ -1,0 +1,4 @@
+---
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres-service.default.svc.cluster.local:5432/onesystem_database
